@@ -18,7 +18,11 @@ window.RWD_CONFIG = {
   video:  "/wp-content/uploads/radius/hero-scrub.mp4",
   poster: "/wp-content/uploads/radius/hero-poster.jpg",
   tel:    "+441242462003",
-  telText:"01242 462003"
+  telText:"01242 462003",
+  logo:   "/wp-content/uploads/radius/radius-logo-white.png",
+  step1:  "/wp-content/uploads/radius/step-01.jpg",
+  step2:  "/wp-content/uploads/radius/step-02.jpg",
+  step3:  "/wp-content/uploads/radius/step-03.jpg"
 };
 </script>
 
@@ -83,6 +87,10 @@ window.RWD_CONFIG = {
 #rwd-root .rwd-brand{display:flex;align-items:center;gap:.6rem;
   font-family:var(--display);font-size:1.12rem;letter-spacing:-.01em}
 #rwd-root .rwd-brand svg{width:22px;height:22px;flex:none}
+#rwd-root .rwd-logo{height:26px;width:auto;display:block}
+#rwd-root .rwd-brand-fb{display:flex;align-items:center;gap:.6rem}
+#rwd-root .rwd-brand-fb[hidden]{display:none}
+#rwd-root .rwd-foot-logo{height:30px;width:auto;opacity:.85;margin-bottom:var(--s2)}
 #rwd-root .rwd-navlinks{display:flex;align-items:center;gap:var(--s3)}
 #rwd-root .rwd-navlinks a{font-size:.9rem;color:var(--bone-dim);
   transition:color .25s var(--ease)}
@@ -178,6 +186,9 @@ window.RWD_CONFIG = {
 @media(min-width:800px){#rwd-root .rwd-steps{grid-template-columns:repeat(3,1fr);gap:var(--s3)}}
 #rwd-root .rwd-step{position:relative;padding-top:var(--s3);
   border-top:1px solid rgba(201,138,63,.35)}
+#rwd-root .rwd-stepimg{width:100%;aspect-ratio:4/3;object-fit:cover;
+  margin-bottom:var(--s3);filter:saturate(.95)}
+#rwd-root .rwd-stepimg[hidden]{display:none}
 #rwd-root .rwd-step .rwd-num{font-family:var(--mono);font-size:.7rem;
   letter-spacing:.17em;color:var(--amber);display:block;margin-bottom:var(--s2)}
 #rwd-root .rwd-step h3{margin-bottom:.6rem}
@@ -272,14 +283,17 @@ window.RWD_CONFIG = {
 
 <!-- ══ NAV ══ -->
 <nav class="rwd-nav" aria-label="Main">
-  <a class="rwd-brand" href="#rwd-top">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="10.4" fill="none" stroke="#C98A3F" stroke-width="1.1"/>
-      <circle cx="12" cy="12" r="6.6" fill="none" stroke="#C98A3F" stroke-width="1.1" opacity=".72"/>
-      <circle cx="12" cy="12" r="2.9" fill="none" stroke="#C98A3F" stroke-width="1.1" opacity=".5"/>
-      <circle cx="12" cy="12" r="1" fill="#C98A3F"/>
-    </svg>
-    <span>Radius</span>
+  <a class="rwd-brand" href="#rwd-top" aria-label="Radius Web Design, back to top">
+    <img class="rwd-logo" id="rwd-logo" alt="Radius Web Design">
+    <span class="rwd-brand-fb" id="rwd-brandfb" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="10.4" fill="none" stroke="#C98A3F" stroke-width="1.1"/>
+        <circle cx="12" cy="12" r="6.6" fill="none" stroke="#C98A3F" stroke-width="1.1" opacity=".72"/>
+        <circle cx="12" cy="12" r="2.9" fill="none" stroke="#C98A3F" stroke-width="1.1" opacity=".5"/>
+        <circle cx="12" cy="12" r="1" fill="#C98A3F"/>
+      </svg>
+      <span>Radius</span>
+    </span>
   </a>
   <div class="rwd-navlinks">
     <a href="#rwd-stand">Where we stand</a>
@@ -467,18 +481,21 @@ window.RWD_CONFIG = {
     <h2 class="rwd-h2" data-rev style="margin-top:var(--s2)">Three steps, and you know the price at step one.</h2>
     <div class="rwd-steps">
       <div class="rwd-step" data-rev>
+        <img class="rwd-stepimg" id="rwd-step1" alt="" aria-hidden="true" hidden>
         <span class="rwd-num">01</span>
         <h3 class="rwd-h3">You ring us</h3>
         <p>Tell us what the business does and what the site needs to bring in. Fifteen minutes on the
         phone is usually enough. No form, no discovery workshop.</p>
       </div>
       <div class="rwd-step" data-rev>
+        <img class="rwd-stepimg" id="rwd-step2" alt="" aria-hidden="true" hidden>
         <span class="rwd-num">02</span>
         <h3 class="rwd-h3">We quote it</h3>
         <p>One number, written down, covering the build and the first year. You see it before we
         start, and it does not move afterwards.</p>
       </div>
       <div class="rwd-step" data-rev>
+        <img class="rwd-stepimg" id="rwd-step3" alt="" aria-hidden="true" hidden>
         <span class="rwd-num">03</span>
         <h3 class="rwd-h3">We build it and stay</h3>
         <p>Design, build, host, and keep it running. Ring us in year five and the same people pick up.</p>
@@ -553,6 +570,7 @@ window.RWD_CONFIG = {
 <footer class="rwd-foot">
   <div class="rwd-wrap">
     <div>
+      <img class="rwd-foot-logo" id="rwd-flogo" alt="Radius Web Design" hidden>
       <div>Radius Web Design · Cheltenham, Gloucestershire</div>
       <p class="rwd-note">
         Imagery on this page is AI generated. The business, the work and the phone number are real.
@@ -595,6 +613,36 @@ window.RWD_CONFIG = {
   });
   var big = document.getElementById('rwd-bigcall');
   if(big) big.textContent = telText;
+
+  /* logo: real mark when it loads, drawn fallback when it does not */
+  var logo = document.getElementById('rwd-logo');
+  var brandfb = document.getElementById('rwd-brandfb');
+  var flogo = document.getElementById('rwd-flogo');
+  function useDrawnMark(){
+    if(logo) logo.hidden = true;
+    if(brandfb) brandfb.hidden = false;
+  }
+  if(logo){
+    if(CFG.logo){
+      logo.addEventListener('error', useDrawnMark, {once:true});
+      logo.src = CFG.logo;
+    } else { useDrawnMark(); }
+  }
+  if(flogo && CFG.logo){
+    flogo.addEventListener('error', function(){ flogo.hidden = true; }, {once:true});
+    flogo.addEventListener('load', function(){ flogo.hidden = false; }, {once:true});
+    flogo.src = CFG.logo;
+  }
+
+  /* step imagery, each one optional */
+  [1,2,3].forEach(function(n){
+    var el = document.getElementById('rwd-step' + n);
+    var url = CFG['step' + n];
+    if(!el || !url) return;
+    el.addEventListener('load', function(){ el.hidden = false; }, {once:true});
+    el.addEventListener('error', function(){ el.hidden = true; }, {once:true});
+    el.src = url;
+  });
 
   if(still){
     /* never let a missing poster spill alt text across the hero */

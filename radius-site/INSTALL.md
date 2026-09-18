@@ -2,12 +2,17 @@
 
 One file: `radius-divi-code-module.html`. It goes into a single Divi Code module.
 
-## 1. Get the two assets out of Higgsfield
+## 1. Get the assets out of Higgsfield
 
 In your Higgsfield account, download:
 
 - the hero video (Kling v3.0, 6 seconds, 1280x720)
 - the starting frame (GPT Image 2.5, 2688x1520)
+- the three step stills (GPT Image 2.5, 1168x880), save them as
+  `step-01.jpg`, `step-02.jpg`, `step-03.jpg` in that order: the single point
+  of light, the scribed line, the dense rings
+
+Your logo is already in this repo at `assets/radius-logo-white.png`.
 
 ## 2. Re-encode the video before you upload it
 
@@ -40,7 +45,9 @@ ffmpeg -sseof -0.2 -i hero-scrub.mp4 -frames:v 1 -q:v 2 hero-end.jpg
 
 ## 3. Upload both to WordPress
 
-Media Library, upload `hero-scrub.mp4` and `hero-poster.jpg`. Copy each file URL.
+Media Library, upload all six: `hero-scrub.mp4`, `hero-poster.jpg`,
+`radius-logo-white.png`, `step-01.jpg`, `step-02.jpg`, `step-03.jpg`.
+Copy each file URL.
 
 WordPress blocks `.mp4` uploads on some hosts. If it refuses, upload by FTP to
 `/wp-content/uploads/radius/` instead and use that path directly.
@@ -64,9 +71,17 @@ window.RWD_CONFIG = {
   video:  "https://radiuswebdesign.com/wp-content/uploads/2026/09/hero-scrub.mp4",
   poster: "https://radiuswebdesign.com/wp-content/uploads/2026/09/hero-poster.jpg",
   tel:    "+441242462003",
-  telText:"01242 462003"
+  telText:"01242 462003",
+  logo:   "https://radiuswebdesign.com/wp-content/uploads/2026/09/radius-logo-white.png",
+  step1:  "https://radiuswebdesign.com/wp-content/uploads/2026/09/step-01.jpg",
+  step2:  "https://radiuswebdesign.com/wp-content/uploads/2026/09/step-02.jpg",
+  step3:  "https://radiuswebdesign.com/wp-content/uploads/2026/09/step-03.jpg"
 };
 ```
+
+Every asset degrades on its own. If the logo URL is wrong you get a drawn ring
+mark and the word Radius instead, and the page carries on. If a step image is
+missing that step just loses its picture. Nothing breaks the page.
 
 The video must be served from the same domain as the page. The loader fetches it
 with `fetch()`, so a cross-domain CDN URL needs CORS headers or it will fall back
@@ -87,10 +102,10 @@ to the still hero.
   them in.
 - **No prices anywhere.** I did not invent any for a real business. If you want a
   pricing section, tell me the numbers.
-- **No logo applied.** You said you have one. It has not come through yet.
-- **Supporting stills** for the lower sections are not generated. The page is
-  designed to hold together without them, and the ring motif does that work for
-  now. Three of them would cost about 9 credits.
+- **A type decision.** The logotype is a heavy condensed grotesque. The page
+  headlines are Fraunces, a warm old-style serif. That pairing is deliberate and
+  it is a normal editorial move, but it is a brand call rather than a technical
+  one. See the note in the chat.
 
 ## Known limitation
 
