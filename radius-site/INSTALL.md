@@ -12,7 +12,8 @@ In your Higgsfield account, download:
   `step-01.jpg`, `step-02.jpg`, `step-03.jpg` in that order: the single point
   of light, the scribed line, the dense rings
 
-Your logo is already in this repo at `assets/radius-logo-white.png`.
+Your logo and the five portfolio screenshots are already in this repo under
+`assets/`, correctly named and compressed. Upload those straight from there.
 
 ## 2. Re-encode the video before you upload it
 
@@ -45,9 +46,9 @@ ffmpeg -sseof -0.2 -i hero-scrub.mp4 -frames:v 1 -q:v 2 hero-end.jpg
 
 ## 3. Upload both to WordPress
 
-Media Library, upload all six: `hero-scrub.mp4`, `hero-poster.jpg`,
-`radius-logo-white.png`, `step-01.jpg`, `step-02.jpg`, `step-03.jpg`.
-Copy each file URL.
+Media Library, upload eleven files: `hero-scrub.mp4`, `hero-poster.jpg`,
+`radius-logo-white.png`, `step-01.jpg`, `step-02.jpg`, `step-03.jpg`, and the
+five `work-*.jpg` screenshots. Copy each file URL.
 
 WordPress blocks `.mp4` uploads on some hosts. If it refuses, upload by FTP to
 `/wp-content/uploads/radius/` instead and use that path directly.
@@ -97,9 +98,14 @@ to the still hero.
 
 ## What still needs your input
 
-- **Two portfolio cards** say "Replace with a real one". Only My Pool and Spa is
-  a real project; I found it in your own blog. Give me two more and I will write
-  them in.
+- **Three portfolio captions have no town.** Complete Pool Controls, Alician
+  Travel and Devon Halo are described by what they do, because their screenshots
+  do not say where they are and I was not going to guess. Enigma says Cheltenham
+  in its own footer and Cowley says Cotswolds in its own heading, so those two
+  are theirs, not mine. Send me the missing towns and the section gets more
+  local, which is the whole point of it.
+- **My Pool and Spa** is not in the grid. I have no screenshot for it, only the
+  blog post. Send one and it goes in.
 - **No prices anywhere.** I did not invent any for a real business. If you want a
   pricing section, tell me the numbers.
 - **A type decision.** The logotype is a heavy condensed grotesque. The page
