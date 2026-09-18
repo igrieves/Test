@@ -53,13 +53,12 @@ five `work-*.jpg` screenshots. Copy each file URL.
 WordPress blocks `.mp4` uploads on some hosts. If it refuses, upload by FTP to
 `/wp-content/uploads/radius/` instead and use that path directly.
 
-## 4. Install the plugin (the easy route)
+## 4. Install the plugin
 
-`plugin/radius-hero.zip` in this repo is a normal WordPress plugin.
+`plugin/radius-hero.zip` is a normal WordPress plugin.
 
 1. **Plugins, Add New, Upload Plugin**, choose `radius-hero.zip`, Install, Activate.
-2. Put your media in `wp-content/plugins/radius-hero/assets/`, by FTP or the
-   host's file manager:
+2. Put your media in `wp-content/plugins/radius-hero/assets/`:
 
    ```
    hero-scrub.mp4    the re-encoded hero video
@@ -71,32 +70,38 @@ WordPress blocks `.mp4` uploads on some hosts. If it refuses, upload by FTP to
 
    The logo and the five portfolio screenshots are already in there.
 
-3. New page, **Use Divi Builder**, Page Settings, Template, **Blank Page**.
-4. One Section, one Row, one **Code** module, and put exactly this in it:
+### Then pick one of three ways to show it
 
-   ```
-   [radius_hero]
-   ```
+**A. The page template. Use this one.**
 
-5. Row settings, Design, Sizing: Custom Gutter Width 1, Width and Max Width
-   100%, and padding 0 on both the Section and the Row.
+New page, **Page Attributes, Template, "Radius Hero (full page)"**, Publish.
+No builder, no theme header or footer, nothing to configure. To make it the
+front page: Settings, Reading, A static page, choose it.
 
-Asset URLs resolve to the plugin's own folder at render time, so there is
-nothing to edit, and the page keeps working if you move it to staging or change
-domain.
+**B. The shortcode.** Put `[radius_hero]` in a Divi **Text** module, or the
+block editor, or the classic editor.
 
-To update the page later, replace `page.html` inside the plugin folder. No
-re-pasting, and the Divi builder never has to hold 40 KB of code.
+> Not a Divi **Code** module. Divi's Code module does not run shortcodes, by
+> design. That is the usual reason nothing appears.
+
+**C. The preview, for diagnosis.** Visit:
+
+```
+yoursite.co.uk/?radius_hero=preview
+```
+
+That renders the page on its own, with no theme and no page involved. If the
+preview works but your page does not, the plugin is fine and the page setup is
+the problem.
+
+To update the page later, replace `page.html` inside the plugin folder.
 
 ## 5. Or paste it directly (no plugin)
 
-If you would rather not install anything: same page setup as above, but paste
-the whole of `radius-divi-code-module.html` into the Code module instead of the
-shortcode, upload the media to the Media Library, and edit the CONFIG block at
-the top of the pasted code to point at those URLs.
-
-This works. It just means the builder stores the whole page as code, and any
-change is another paste.
+Same page setup, but paste the whole of `radius-divi-code-module.html` into a
+Divi **Code** module, upload the media to the Media Library, and edit the CONFIG
+block at the top to point at those URLs. Raw HTML in a Code module works fine.
+It is only shortcodes that do not.
 
 ## 6. Check the video before you upload it
 
