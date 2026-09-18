@@ -27,7 +27,7 @@ window.RWD_CONFIG = {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 #rwd-root{
   --ink:#17120E; --bark:#221A14; --bark-2:#2E241B;
@@ -36,6 +36,7 @@ window.RWD_CONFIG = {
   --verdigris:#6E8C72; --verdigris-hi:#87A88B;
 
   --display:'Fraunces',Georgia,serif;
+  --condensed:'Anton','Arial Narrow',sans-serif;  /* echoes the logotype */
   --body:'Instrument Sans',system-ui,sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,monospace;
 
@@ -210,9 +211,10 @@ window.RWD_CONFIG = {
 /* ── counter ──────────────────────────────────────────────────────── */
 #rwd-root .rwd-stats{display:grid;gap:var(--s4);margin-top:var(--s5)}
 @media(min-width:680px){#rwd-root .rwd-stats{grid-template-columns:repeat(3,1fr)}}
-#rwd-root .rwd-stat .rwd-big{font-family:var(--display);font-weight:300;
-  font-size:clamp(2.6rem,6vw,4rem);line-height:1;color:var(--bone);
-  letter-spacing:-.02em}
+#rwd-root .rwd-stat .rwd-big{font-family:var(--condensed);font-weight:400;
+  font-size:clamp(3.2rem,7.4vw,5rem);line-height:.92;color:var(--bone);
+  letter-spacing:.005em;font-feature-settings:"tnum" 1;
+  font-variant-numeric:tabular-nums}
 #rwd-root .rwd-stat p{margin-top:.6rem;color:var(--bone-dim);font-size:.92rem}
 
 /* ── faq ──────────────────────────────────────────────────────────── */
