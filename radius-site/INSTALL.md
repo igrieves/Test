@@ -98,14 +98,8 @@ to the still hero.
 
 ## What still needs your input
 
-- **Three portfolio captions have no town.** Complete Pool Controls, Alician
-  Travel and Devon Halo are described by what they do, because their screenshots
-  do not say where they are and I was not going to guess. Enigma says Cheltenham
-  in its own footer and Cowley says Cotswolds in its own heading, so those two
-  are theirs, not mine. Send me the missing towns and the section gets more
-  local, which is the whole point of it.
 - **My Pool and Spa** is not in the grid. I have no screenshot for it, only the
-  blog post. Send one and it goes in.
+  blog post. Send one and it goes in, and the counter card becomes 444.
 - **No prices anywhere.** I did not invent any for a real business. If you want a
   pricing section, tell me the numbers.
 - **A type decision.** The logotype is a heavy condensed grotesque. The page
