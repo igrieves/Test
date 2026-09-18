@@ -88,18 +88,34 @@ The video must be served from the same domain as the page. The loader fetches it
 with `fetch()`, so a cross-domain CDN URL needs CORS headers or it will fall back
 to the still hero.
 
-## 6. Check it
+## 6. Check the video before you upload it
+
+Open `scrub-test.html` by double-clicking it. No server needed, nothing is
+uploaded, it all runs in your browser. Drop `hero-scrub.mp4` on it, drag the
+slider, then press **Run the automatic test**.
+
+It does 24 random seeks and reports the average. Under about 35 ms and it will
+scrub smoothly. Over about 90 ms and the keyframes are too far apart, so
+re-encode with the command in step 2 and test again. Those numbers are practical
+rules of thumb rather than any standard.
+
+Do this on the re-encoded file AND the original if you want to see the
+difference the `-g 5` makes. It is usually large.
+
+## 7. Check the page
 
 - On a laptop: scroll the hero slowly, then flick it hard. The footage should
   track the scroll both ways and settle without stuttering.
+- The full page needs a web server, not a double-click. Browsers block `fetch`
+  on `file://` URLs, so opening `index.html` directly shows the still hero on
+  purpose. Either check it on WordPress, or run `npx http-server` in the folder
+  and open the localhost link it prints.
 - On a phone: you should get the designed still hero, not the video. That is
   deliberate.
 - Tap the phone number on a real phone and confirm it dials.
 
 ## What still needs your input
 
-- **My Pool and Spa** is not in the grid. I have no screenshot for it, only the
-  blog post. Send one and it goes in, and the counter card becomes 444.
 - **No prices anywhere.** I did not invent any for a real business. If you want a
   pricing section, tell me the numbers.
 - **A type decision.** The logotype is a heavy condensed grotesque. The page
