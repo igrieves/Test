@@ -53,40 +53,50 @@ five `work-*.jpg` screenshots. Copy each file URL.
 WordPress blocks `.mp4` uploads on some hosts. If it refuses, upload by FTP to
 `/wp-content/uploads/radius/` instead and use that path directly.
 
-## 4. Build the page
+## 4. Install the plugin (the easy route)
 
-1. Pages, Add New, title it, then Use Divi Builder.
-2. Page Settings, Template, set **Blank Page**. This keeps the theme header and
-   footer out of the way, which matters because the page carries its own nav.
-3. Add one Section, one Row, one **Code** module.
-4. Paste the entire contents of `radius-divi-code-module.html` into it.
-5. Row settings, Design, Sizing: set Custom Gutter Width to 1 and both Width
-   and Max Width to 100%. Padding to 0 on the Section and the Row.
+`plugin/radius-hero.zip` in this repo is a normal WordPress plugin.
 
-## 5. Point it at your files
+1. **Plugins, Add New, Upload Plugin**, choose `radius-hero.zip`, Install, Activate.
+2. Put your media in `wp-content/plugins/radius-hero/assets/`, by FTP or the
+   host's file manager:
 
-At the top of the pasted code, edit the CONFIG block:
+   ```
+   hero-scrub.mp4    the re-encoded hero video
+   hero-poster.jpg   its first frame
+   step-01.jpg       the three how-it-goes stills
+   step-02.jpg
+   step-03.jpg
+   ```
 
-```js
-window.RWD_CONFIG = {
-  video:  "https://radiuswebdesign.com/wp-content/uploads/2026/09/hero-scrub.mp4",
-  poster: "https://radiuswebdesign.com/wp-content/uploads/2026/09/hero-poster.jpg",
-  tel:    "+441242462003",
-  telText:"01242 462003",
-  logo:   "https://radiuswebdesign.com/wp-content/uploads/2026/09/radius-logo-white.png",
-  step1:  "https://radiuswebdesign.com/wp-content/uploads/2026/09/step-01.jpg",
-  step2:  "https://radiuswebdesign.com/wp-content/uploads/2026/09/step-02.jpg",
-  step3:  "https://radiuswebdesign.com/wp-content/uploads/2026/09/step-03.jpg"
-};
-```
+   The logo and the five portfolio screenshots are already in there.
 
-Every asset degrades on its own. If the logo URL is wrong you get a drawn ring
-mark and the word Radius instead, and the page carries on. If a step image is
-missing that step just loses its picture. Nothing breaks the page.
+3. New page, **Use Divi Builder**, Page Settings, Template, **Blank Page**.
+4. One Section, one Row, one **Code** module, and put exactly this in it:
 
-The video must be served from the same domain as the page. The loader fetches it
-with `fetch()`, so a cross-domain CDN URL needs CORS headers or it will fall back
-to the still hero.
+   ```
+   [radius_hero]
+   ```
+
+5. Row settings, Design, Sizing: Custom Gutter Width 1, Width and Max Width
+   100%, and padding 0 on both the Section and the Row.
+
+Asset URLs resolve to the plugin's own folder at render time, so there is
+nothing to edit, and the page keeps working if you move it to staging or change
+domain.
+
+To update the page later, replace `page.html` inside the plugin folder. No
+re-pasting, and the Divi builder never has to hold 40 KB of code.
+
+## 5. Or paste it directly (no plugin)
+
+If you would rather not install anything: same page setup as above, but paste
+the whole of `radius-divi-code-module.html` into the Code module instead of the
+shortcode, upload the media to the Media Library, and edit the CONFIG block at
+the top of the pasted code to point at those URLs.
+
+This works. It just means the builder stores the whole page as code, and any
+change is another paste.
 
 ## 6. Check the video before you upload it
 

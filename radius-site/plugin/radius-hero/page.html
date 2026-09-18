@@ -1,0 +1,900 @@
+<!--
+  RADIUS WEB DESIGN  ·  cinematic scroll hero + full page
+  Paste this whole file into a single Divi 5 Code module.
+
+  BEFORE IT WORKS, set the two URLs in the CONFIG block below to your
+  WordPress Media Library URLs. Everything else is self contained.
+
+  Page setup: Divi > Page Settings > Blank Page template, so the theme
+  header and footer stay out of the way.
+-->
+
+<div id="rwd-root" data-rwd>
+
+<script>
+/* ── CONFIG ─────────────────────────────────────────────────────────────
+   Upload the two files to Media Library, paste their URLs here. */
+window.RWD_CONFIG = {
+  video:  "/wp-content/uploads/radius/hero-scrub.mp4",
+  poster: "/wp-content/uploads/radius/hero-poster.jpg",
+  tel:    "+441242462003",
+  telText:"01242 462003",
+  logo:   "/wp-content/uploads/radius/radius-logo-white.png",
+  step1:  "/wp-content/uploads/radius/step-01.jpg",
+  step2:  "/wp-content/uploads/radius/step-02.jpg",
+  step3:  "/wp-content/uploads/radius/step-03.jpg",
+  work:   [
+    "/wp-content/uploads/radius/work-enigma-portrait.jpg",
+    "/wp-content/uploads/radius/work-cowley-shepherds-huts.jpg",
+    "/wp-content/uploads/radius/work-complete-pool-controls.jpg",
+    "/wp-content/uploads/radius/work-alician-travel.jpg",
+    "/wp-content/uploads/radius/work-devon-halo.jpg"
+  ]
+};
+</script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+#rwd-root{
+  --ink:#17120E; --bark:#221A14; --bark-2:#2E241B;
+  --amber:#C98A3F; --amber-lo:#8E6029;
+  --bone:#EFE7DA; --bone-dim:#B7ABA0;
+  --verdigris:#6E8C72; --verdigris-hi:#87A88B;
+
+  --display:'Fraunces',Georgia,serif;
+  --condensed:'Anton','Arial Narrow',sans-serif;  /* echoes the logotype */
+  --body:'Instrument Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+
+  --s1:.5rem; --s2:1rem; --s3:1.5rem; --s4:2.5rem; --s5:4rem; --s6:6.5rem;
+  --maxw:1180px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+
+  background:var(--ink); color:var(--bone);
+  font-family:var(--body); font-size:17px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  position:relative; isolation:isolate;
+}
+#rwd-root *,#rwd-root *::before,#rwd-root *::after{box-sizing:border-box}
+#rwd-root p,#rwd-root h1,#rwd-root h2,#rwd-root h3,#rwd-root h4,
+#rwd-root ul,#rwd-root ol,#rwd-root figure{margin:0;padding:0}
+#rwd-root ul,#rwd-root ol{list-style:none}
+#rwd-root img,#rwd-root video,#rwd-root svg{display:block;max-width:100%}
+#rwd-root a{color:inherit;text-decoration:none}
+
+/* Break out of Divi's row padding so the hero is edge to edge. */
+#rwd-root{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);width:100vw;max-width:100vw;overflow-x:clip}
+.et_pb_module:has(#rwd-root),.et_pb_code:has(#rwd-root){padding:0!important;margin:0!important}
+
+/* ── type ─────────────────────────────────────────────────────────── */
+#rwd-root .rwd-h1{font-family:var(--display);font-weight:300;line-height:1.02;
+  font-size:clamp(2.6rem,7.2vw,5.6rem);letter-spacing:-.022em}
+#rwd-root .rwd-h2{font-family:var(--display);font-weight:300;line-height:1.08;
+  font-size:clamp(2rem,4.4vw,3.4rem);letter-spacing:-.018em}
+#rwd-root .rwd-h3{font-family:var(--display);font-weight:400;line-height:1.2;
+  font-size:clamp(1.25rem,2.1vw,1.6rem);letter-spacing:-.01em}
+#rwd-root .rwd-label{font-family:var(--mono);font-size:.7rem;font-weight:500;
+  letter-spacing:.17em;text-transform:uppercase;color:var(--amber)}
+#rwd-root .rwd-lede{font-size:clamp(1.05rem,1.7vw,1.3rem);color:var(--bone-dim);max-width:54ch}
+#rwd-root .rwd-dim{color:var(--bone-dim)}
+
+/* ── layout ───────────────────────────────────────────────────────── */
+#rwd-root .rwd-wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--s3)}
+#rwd-root .rwd-sec{padding:var(--s6) 0;position:relative}
+#rwd-root .rwd-sec + .rwd-sec{border-top:1px solid rgba(239,231,218,.07)}
+
+/* ── nav ──────────────────────────────────────────────────────────── */
+#rwd-root .rwd-nav{position:fixed;top:0;left:0;right:0;z-index:40;
+  display:flex;align-items:center;justify-content:space-between;gap:var(--s2);
+  padding:var(--s2) var(--s3);
+  background:linear-gradient(to bottom,rgba(23,18,14,.92),rgba(23,18,14,0));
+  transition:background .4s var(--ease)}
+#rwd-root .rwd-nav[data-solid="1"]{background:rgba(23,18,14,.96);
+  border-bottom:1px solid rgba(239,231,218,.08);backdrop-filter:blur(10px)}
+#rwd-root .rwd-brand{display:flex;align-items:center;gap:.6rem;
+  font-family:var(--display);font-size:1.12rem;letter-spacing:-.01em}
+#rwd-root .rwd-brand svg{width:22px;height:22px;flex:none}
+#rwd-root .rwd-logo{height:26px;width:auto;display:block}
+#rwd-root .rwd-brand-fb{display:flex;align-items:center;gap:.6rem}
+#rwd-root .rwd-brand-fb[hidden]{display:none}
+#rwd-root .rwd-foot-logo{height:30px;width:auto;opacity:.85;margin-bottom:var(--s2)}
+#rwd-root .rwd-navlinks{display:flex;align-items:center;gap:var(--s3)}
+#rwd-root .rwd-navlinks a{font-size:.9rem;color:var(--bone-dim);
+  transition:color .25s var(--ease)}
+#rwd-root .rwd-navlinks a:hover{color:var(--bone)}
+
+/* ── buttons ──────────────────────────────────────────────────────── */
+#rwd-root .rwd-btn{display:inline-flex;align-items:center;gap:.6rem;
+  font-family:var(--body);font-weight:500;font-size:1rem;
+  padding:.9rem 1.5rem;border-radius:2px;min-height:48px;
+  background:var(--verdigris);color:#0F1410;border:1px solid var(--verdigris);
+  transition:background .3s var(--ease),transform .3s var(--ease)}
+#rwd-root .rwd-btn:hover{background:var(--verdigris-hi);transform:translateY(-1px)}
+#rwd-root .rwd-btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+#rwd-root .rwd-btn-ghost{background:transparent;color:var(--bone);
+  border:1px solid rgba(239,231,218,.28)}
+#rwd-root .rwd-btn-ghost:hover{background:rgba(239,231,218,.06);border-color:var(--bone-dim)}
+#rwd-root .rwd-btn svg{width:17px;height:17px}
+
+/* ── hero ─────────────────────────────────────────────────────────── */
+#rwd-root .rwd-hero{position:relative;height:520vh}
+#rwd-root .rwd-stage{position:sticky;top:0;height:100vh;overflow:hidden;
+  background:var(--ink)}
+#rwd-root .rwd-stage video,#rwd-root .rwd-stage .rwd-still{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#rwd-root .rwd-stage video{opacity:0;transition:opacity .9s var(--ease)}
+#rwd-root .rwd-stage[data-ready="1"] video{opacity:1}
+#rwd-root .rwd-stage[data-ready="1"] .rwd-still{opacity:0;transition:opacity .9s var(--ease)}
+#rwd-root .rwd-vig{position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(120% 90% at 50% 55%,transparent 38%,rgba(23,18,14,.55) 100%),
+    linear-gradient(to bottom,rgba(23,18,14,.72) 0%,transparent 26%,transparent 60%,rgba(23,18,14,.88) 100%)}
+
+/* caption bands */
+#rwd-root .rwd-band{position:absolute;left:0;right:0;z-index:3;
+  padding:0 var(--s3);text-align:center;
+  opacity:0;transform:translateY(14px);
+  transition:opacity .7s var(--ease),transform .7s var(--ease);
+  pointer-events:none}
+#rwd-root .rwd-band[data-on="1"]{opacity:1;transform:none}
+#rwd-root .rwd-band-top{top:15vh}
+#rwd-root .rwd-band-bot{bottom:16vh}
+#rwd-root .rwd-band .rwd-h1,#rwd-root .rwd-band .rwd-h2{
+  text-shadow:0 2px 40px rgba(23,18,14,.95),0 1px 4px rgba(23,18,14,.9)}
+#rwd-root .rwd-band p{margin-top:var(--s2);color:var(--bone);
+  text-shadow:0 1px 20px rgba(23,18,14,.95)}
+
+/* settle card */
+#rwd-root .rwd-settle{position:absolute;left:0;right:0;bottom:12vh;z-index:4;
+  padding:0 var(--s3);text-align:center;
+  opacity:0;transform:translateY(18px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease);
+  pointer-events:none}
+#rwd-root .rwd-settle[data-on="1"]{opacity:1;transform:none;pointer-events:auto}
+#rwd-root .rwd-settle .rwd-cta-row{display:flex;gap:var(--s2);justify-content:center;
+  flex-wrap:wrap;margin-top:var(--s3)}
+
+/* loading ring */
+#rwd-root .rwd-load{position:absolute;left:50%;bottom:8vh;transform:translateX(-50%);
+  z-index:5;display:flex;align-items:center;gap:.7rem;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--bone-dim);
+  transition:opacity .5s var(--ease)}
+#rwd-root .rwd-load[hidden]{display:none}
+#rwd-root .rwd-load svg{width:22px;height:22px}
+#rwd-root .rwd-load circle{fill:none;stroke-width:2}
+#rwd-root .rwd-load .rwd-trk{stroke:rgba(239,231,218,.16)}
+#rwd-root .rwd-load .rwd-arc{stroke:var(--amber);stroke-linecap:round;
+  transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .3s linear}
+
+/* scroll hint */
+#rwd-root .rwd-hint{position:absolute;left:50%;bottom:3.2vh;transform:translateX(-50%);
+  z-index:5;font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(239,231,218,.5);
+  transition:opacity .5s var(--ease)}
+#rwd-root .rwd-hint[data-off="1"]{opacity:0}
+
+/* ── ring motif ───────────────────────────────────────────────────── */
+#rwd-root .rwd-rings{position:absolute;inset:0;z-index:0;pointer-events:none;
+  opacity:.16;display:grid;place-items:center;overflow:hidden}
+#rwd-root .rwd-rings circle{fill:none;stroke:var(--amber);stroke-width:.6}
+
+/* ── fears grid ───────────────────────────────────────────────────── */
+#rwd-root .rwd-fears{display:grid;gap:1px;margin-top:var(--s5);
+  background:rgba(239,231,218,.08);border:1px solid rgba(239,231,218,.08)}
+@media(min-width:720px){#rwd-root .rwd-fears{grid-template-columns:1fr 1fr}}
+#rwd-root .rwd-fear{background:var(--ink);padding:var(--s4) var(--s3)}
+#rwd-root .rwd-fear .rwd-label{display:block;margin-bottom:var(--s2)}
+#rwd-root .rwd-fear h3{margin-bottom:.7rem}
+#rwd-root .rwd-fear p{color:var(--bone-dim);font-size:.97rem}
+
+/* ── steps ────────────────────────────────────────────────────────── */
+#rwd-root .rwd-steps{display:grid;gap:var(--s4);margin-top:var(--s5)}
+@media(min-width:800px){#rwd-root .rwd-steps{grid-template-columns:repeat(3,1fr);gap:var(--s3)}}
+#rwd-root .rwd-step{position:relative;padding-top:var(--s3);
+  border-top:1px solid rgba(201,138,63,.35)}
+#rwd-root .rwd-stepimg{width:100%;aspect-ratio:4/3;object-fit:cover;
+  margin-bottom:var(--s3);filter:saturate(.95)}
+#rwd-root .rwd-stepimg[hidden]{display:none}
+#rwd-root .rwd-step .rwd-num{font-family:var(--mono);font-size:.7rem;
+  letter-spacing:.17em;color:var(--amber);display:block;margin-bottom:var(--s2)}
+#rwd-root .rwd-step h3{margin-bottom:.6rem}
+#rwd-root .rwd-step p{color:var(--bone-dim);font-size:.97rem}
+
+/* ── work ─────────────────────────────────────────────────────────── */
+#rwd-root .rwd-work{display:grid;gap:var(--s3);margin-top:var(--s5)}
+@media(min-width:620px){#rwd-root .rwd-work{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:980px){#rwd-root .rwd-work{grid-template-columns:repeat(3,1fr)}}
+#rwd-root .rwd-card{background:var(--bark);border:1px solid rgba(239,231,218,.08);
+  padding:var(--s3);transition:border-color .35s var(--ease),transform .35s var(--ease)}
+#rwd-root .rwd-card:hover{border-color:rgba(201,138,63,.45);transform:translateY(-3px)}
+#rwd-root .rwd-card .rwd-thumb{aspect-ratio:800/503;background:
+  linear-gradient(135deg,var(--bark-2),var(--ink));margin-bottom:var(--s2);
+  display:grid;place-items:center;overflow:hidden}
+#rwd-root .rwd-card .rwd-thumb img{width:100%;height:100%;object-fit:cover;
+  object-position:top center;transition:transform .5s var(--ease)}
+#rwd-root .rwd-card:hover .rwd-thumb img{transform:scale(1.03)}
+#rwd-root .rwd-card{display:block}
+#rwd-root .rwd-card-more .rwd-morebox{aspect-ratio:800/503;margin-bottom:var(--s2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;
+  border:1px solid rgba(110,140,114,.4);background:rgba(110,140,114,.07)}
+#rwd-root .rwd-morenum{font-family:var(--condensed);font-size:clamp(2.6rem,5vw,3.6rem);
+  line-height:.9;color:var(--verdigris-hi)}
+#rwd-root .rwd-moretext{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--verdigris-hi)}
+#rwd-root .rwd-card-more:hover{border-color:rgba(110,140,114,.7)}
+#rwd-root .rwd-card h3{font-size:1.05rem;margin-bottom:.3rem}
+#rwd-root .rwd-card p{font-size:.88rem;color:var(--bone-dim)}
+
+/* ── counter ──────────────────────────────────────────────────────── */
+#rwd-root .rwd-stats{display:grid;gap:var(--s4);margin-top:var(--s5)}
+@media(min-width:680px){#rwd-root .rwd-stats{grid-template-columns:repeat(3,1fr)}}
+#rwd-root .rwd-stat .rwd-big{font-family:var(--condensed);font-weight:400;
+  font-size:clamp(3.2rem,7.4vw,5rem);line-height:.92;color:var(--bone);
+  letter-spacing:.005em;font-feature-settings:"tnum" 1;
+  font-variant-numeric:tabular-nums}
+#rwd-root .rwd-stat p{margin-top:.6rem;color:var(--bone-dim);font-size:.92rem}
+
+/* ── faq ──────────────────────────────────────────────────────────── */
+#rwd-root .rwd-faq{margin-top:var(--s5);border-top:1px solid rgba(239,231,218,.1)}
+#rwd-root .rwd-faq details{border-bottom:1px solid rgba(239,231,218,.1)}
+#rwd-root .rwd-faq summary{cursor:pointer;list-style:none;padding:var(--s3) 0;
+  display:flex;align-items:center;justify-content:space-between;gap:var(--s2);
+  font-family:var(--display);font-size:clamp(1.05rem,1.9vw,1.3rem);font-weight:400;
+  min-height:56px;transition:color .25s var(--ease)}
+#rwd-root .rwd-faq summary::-webkit-details-marker{display:none}
+#rwd-root .rwd-faq summary:hover{color:var(--amber)}
+#rwd-root .rwd-faq summary .rwd-plus{flex:none;width:16px;height:16px;position:relative}
+#rwd-root .rwd-faq summary .rwd-plus::before,
+#rwd-root .rwd-faq summary .rwd-plus::after{content:"";position:absolute;
+  background:var(--amber);transition:transform .3s var(--ease)}
+#rwd-root .rwd-faq summary .rwd-plus::before{left:0;top:7px;width:16px;height:2px}
+#rwd-root .rwd-faq summary .rwd-plus::after{left:7px;top:0;width:2px;height:16px}
+#rwd-root .rwd-faq details[open] summary .rwd-plus::after{transform:scaleY(0)}
+#rwd-root .rwd-faq .rwd-ans{padding:0 0 var(--s3);color:var(--bone-dim);max-width:62ch}
+
+/* ── call ─────────────────────────────────────────────────────────── */
+#rwd-root .rwd-call{text-align:center;padding:var(--s6) 0;position:relative;overflow:hidden}
+#rwd-root .rwd-callnum{display:inline-block;margin-top:var(--s3);
+  font-family:var(--display);font-weight:300;letter-spacing:-.02em;
+  font-size:clamp(2.2rem,6.5vw,4.2rem);color:var(--amber);
+  transition:color .3s var(--ease)}
+#rwd-root .rwd-callnum:hover{color:var(--bone)}
+
+/* ── footer ───────────────────────────────────────────────────────── */
+#rwd-root .rwd-foot{border-top:1px solid rgba(239,231,218,.1);
+  padding:var(--s4) 0;font-size:.85rem;color:var(--bone-dim)}
+#rwd-root .rwd-foot .rwd-wrap{display:flex;flex-wrap:wrap;gap:var(--s2);
+  justify-content:space-between;align-items:center}
+#rwd-root .rwd-note{font-size:.78rem;color:rgba(183,171,160,.7);
+  margin-top:var(--s2);max-width:62ch}
+
+/* ── reveal ───────────────────────────────────────────────────────── */
+#rwd-root [data-rev]{opacity:0;transform:translateY(22px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease)}
+#rwd-root [data-rev][data-in="1"]{opacity:1;transform:none}
+
+/* ── mobile ───────────────────────────────────────────────────────── */
+@media(max-width:900px){
+  #rwd-root .rwd-hero{height:auto}
+  #rwd-root .rwd-stage{position:relative;height:88vh;min-height:520px}
+  #rwd-root .rwd-band{position:static;opacity:1;transform:none;padding-top:0}
+  #rwd-root .rwd-navlinks{display:none}
+  #rwd-root .rwd-sec{padding:var(--s5) 0}
+}
+@media(max-width:900px){
+  #rwd-root .rwd-mstack{position:absolute;inset:auto 0 0 0;z-index:4;
+    padding:var(--s3);text-align:left;
+    background:linear-gradient(to top,rgba(23,18,14,.97) 30%,transparent)}
+  #rwd-root .rwd-mstack .rwd-cta-row{display:flex;gap:var(--s2);
+    flex-wrap:wrap;margin-top:var(--s3)}
+  #rwd-root .rwd-band-top,#rwd-root .rwd-band-bot,
+  #rwd-root .rwd-settle,#rwd-root .rwd-hint,#rwd-root .rwd-load{display:none}
+}
+@media(min-width:901px){#rwd-root .rwd-mstack{display:none}}
+
+@media(prefers-reduced-motion:reduce){
+  #rwd-root *,#rwd-root *::before,#rwd-root *::after{
+    animation-duration:.01ms!important;transition-duration:.01ms!important}
+  #rwd-root .rwd-hero{height:auto}
+  #rwd-root .rwd-stage{position:relative;height:88vh;min-height:520px}
+}
+</style>
+
+<!-- ══ NAV ══ -->
+<nav class="rwd-nav" aria-label="Main">
+  <a class="rwd-brand" href="#rwd-top" aria-label="Radius Web Design, back to top">
+    <img class="rwd-logo" id="rwd-logo" alt="Radius Web Design">
+    <span class="rwd-brand-fb" id="rwd-brandfb" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="10.4" fill="none" stroke="#C98A3F" stroke-width="1.1"/>
+        <circle cx="12" cy="12" r="6.6" fill="none" stroke="#C98A3F" stroke-width="1.1" opacity=".72"/>
+        <circle cx="12" cy="12" r="2.9" fill="none" stroke="#C98A3F" stroke-width="1.1" opacity=".5"/>
+        <circle cx="12" cy="12" r="1" fill="#C98A3F"/>
+      </svg>
+      <span>Radius</span>
+    </span>
+  </a>
+  <div class="rwd-navlinks">
+    <a href="#rwd-stand">Where we stand</a>
+    <a href="#rwd-work">Work</a>
+    <a href="#rwd-how">How it goes</a>
+    <a href="#rwd-faq">Questions</a>
+    <a class="rwd-btn" id="rwd-navcall" href="#rwd-call">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>
+      </svg>
+      <span>Call us</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div id="rwd-top"></div>
+<section class="rwd-hero" id="rwd-hero" aria-label="Radius Web Design">
+  <div class="rwd-stage" id="rwd-stage" data-ready="0">
+
+    <img class="rwd-still" id="rwd-still" alt="Close view of polished timber end grain, warm amber growth rings lit from one side.">
+    <video id="rwd-video" muted playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+    <div class="rwd-vig"></div>
+
+    <div class="rwd-band rwd-band-top" data-band="0">
+      <h1 class="rwd-h1">Nineteen years<br>of steady work.</h1>
+    </div>
+
+    <div class="rwd-band rwd-band-top" data-band="1">
+      <h2 class="rwd-h2">Four hundred and fifty websites.</h2>
+      <p>Built in Cheltenham. Still online.</p>
+    </div>
+
+    <div class="rwd-band rwd-band-top" data-band="2">
+      <h2 class="rwd-h2">Still answering the phone.</h2>
+      <p>That is rarer in this trade than it should be.</p>
+    </div>
+
+    <div class="rwd-settle" id="rwd-settle">
+      <span class="rwd-label">Web design · Cheltenham, Gloucestershire</span>
+      <div class="rwd-cta-row">
+        <a class="rwd-btn" id="rwd-herocall" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>
+          </svg>
+          <span id="rwd-herocall-t">Call 01242 462003</span>
+        </a>
+        <a class="rwd-btn rwd-btn-ghost" href="#rwd-stand">See where we stand</a>
+      </div>
+    </div>
+
+    <!-- mobile: the still hero, designed rather than fallen back to -->
+    <div class="rwd-mstack">
+      <span class="rwd-label">Web design · Cheltenham</span>
+      <h1 class="rwd-h1" style="margin-top:.6rem">Nineteen years<br>of steady work.</h1>
+      <p class="rwd-lede" style="margin-top:1rem">
+        Four hundred and fifty websites, built in Cheltenham. Still online, and we still answer the phone.
+      </p>
+      <div class="rwd-cta-row">
+        <a class="rwd-btn" id="rwd-mcall" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>
+          </svg>
+          <span id="rwd-mcall-t">Call 01242 462003</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="rwd-load" id="rwd-load" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle class="rwd-trk" cx="12" cy="12" r="10"/>
+        <circle class="rwd-arc" id="rwd-arc" cx="12" cy="12" r="10"
+                stroke-dasharray="62.83" stroke-dashoffset="62.83"/>
+      </svg>
+      <span id="rwd-loadt">Loading</span>
+    </div>
+
+    <div class="rwd-hint" id="rwd-hint">Scroll</div>
+  </div>
+</section>
+
+<!-- ══ WHERE WE STAND ══ -->
+<section class="rwd-sec" id="rwd-stand">
+  <div class="rwd-wrap">
+    <span class="rwd-label" data-rev>Where we stand</span>
+    <h2 class="rwd-h2" data-rev style="margin-top:var(--s2)">
+      Four things people are frightened of<br>before they ring a web designer.
+    </h2>
+    <p class="rwd-lede" data-rev style="margin-top:var(--s3)">
+      We hear all four, most weeks. Here is our answer to each one, in writing, before you call.
+    </p>
+
+    <div class="rwd-fears">
+      <div class="rwd-fear" data-rev>
+        <span class="rwd-label">One</span>
+        <h3 class="rwd-h3">You own it. All of it.</h3>
+        <p>The domain goes in your name, not ours. The hosting account is yours. If you ever want to
+        move to somebody else, you take the whole site with you and we help you pack it up.</p>
+      </div>
+      <div class="rwd-fear" data-rev>
+        <span class="rwd-label">Two</span>
+        <h3 class="rwd-h3">We answer the phone.</h3>
+        <p>Same Cheltenham number since 2007. A real person picks it up, usually in a ring or two.
+        No ticket number, no waiting three days to hear back about your own website.</p>
+      </div>
+      <div class="rwd-fear" data-rev>
+        <span class="rwd-label">Three</span>
+        <h3 class="rwd-h3">The price is the price.</h3>
+        <p>One quote, written down, before any work starts. No plugin renewals turning up on your
+        bill in year two. No charge to add an SSL certificate, which was never something to charge for.</p>
+      </div>
+      <div class="rwd-fear" data-rev>
+        <span class="rwd-label">Four</span>
+        <h3 class="rwd-h3">Change your own words.</h3>
+        <p>We build it so you can edit your own text without ringing anyone. If you would rather we
+        did it, that is part of the deal, not billed by the paragraph.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS ══ -->
+<section class="rwd-sec">
+  <div class="rwd-wrap">
+    <div class="rwd-stats">
+      <div class="rwd-stat" data-rev>
+        <div class="rwd-big"><span data-count="19">19</span></div>
+        <p>Years, and counting. One ring for each of them.</p>
+      </div>
+      <div class="rwd-stat" data-rev>
+        <div class="rwd-big"><span data-count="450">450</span>+</div>
+        <p>Websites designed, built, hosted and looked after.</p>
+      </div>
+      <div class="rwd-stat" data-rev>
+        <div class="rwd-big">1</div>
+        <p>Phone number. The same one you called last time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WORK ══ -->
+<section class="rwd-sec" id="rwd-work">
+  <div class="rwd-wrap">
+    <span class="rwd-label" data-rev>Selected work</span>
+    <h2 class="rwd-h2" data-rev style="margin-top:var(--s2)">
+      Local businesses, mostly.<br>A few from further out.
+    </h2>
+    <p class="rwd-lede" data-rev style="margin-top:var(--s3)">
+      Every one of these still carries Site by Radius in its footer. Open any of
+      them and scroll to the bottom.
+    </p>
+    <div class="rwd-work">
+      <a class="rwd-card" data-rev href="#rwd-call">
+        <div class="rwd-thumb"><img data-work="0" alt="Enigma Portrait Photography website homepage"></div>
+        <h3 class="rwd-h3">Enigma Portrait Photography</h3>
+        <p>Cheltenham, Gloucestershire</p>
+      </a>
+      <a class="rwd-card" data-rev href="#rwd-call">
+        <div class="rwd-thumb"><img data-work="1" alt="Cowley Shepherd's Huts website homepage"></div>
+        <h3 class="rwd-h3">Cowley Shepherd's Huts</h3>
+        <p>Cotswolds, Gloucestershire</p>
+      </a>
+      <a class="rwd-card" data-rev href="#rwd-call">
+        <div class="rwd-thumb"><img data-work="2" alt="Complete Pool Controls website homepage"></div>
+        <h3 class="rwd-h3">Complete Pool Controls</h3>
+        <p>Water treatment, Gloucestershire</p>
+      </a>
+      <a class="rwd-card" data-rev href="#rwd-call">
+        <div class="rwd-thumb"><img data-work="3" alt="Alician Travel website homepage"></div>
+        <h3 class="rwd-h3">Alician Travel</h3>
+        <p>Travel, Gloucestershire</p>
+      </a>
+      <a class="rwd-card" data-rev href="#rwd-call">
+        <div class="rwd-thumb"><img data-work="4" alt="Devon Halo website homepage"></div>
+        <h3 class="rwd-h3">Devon Halo</h3>
+        <p>Planning advice, Devon</p>
+      </a>
+      <a class="rwd-card rwd-card-more" data-rev href="#rwd-call">
+        <div class="rwd-morebox">
+          <span class="rwd-morenum">445</span>
+          <span class="rwd-moretext">more</span>
+        </div>
+        <h3 class="rwd-h3">And the rest of them.</h3>
+        <p>Ring us and we will show you ones like yours.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT GOES ══ -->
+<section class="rwd-sec" id="rwd-how">
+  <div class="rwd-wrap">
+    <span class="rwd-label" data-rev>How it goes</span>
+    <h2 class="rwd-h2" data-rev style="margin-top:var(--s2)">Three steps, and you know the price at step one.</h2>
+    <div class="rwd-steps">
+      <div class="rwd-step" data-rev>
+        <img class="rwd-stepimg" id="rwd-step1" alt="" aria-hidden="true" hidden>
+        <span class="rwd-num">01</span>
+        <h3 class="rwd-h3">You ring us</h3>
+        <p>Tell us what the business does and what the site needs to bring in. Fifteen minutes on the
+        phone is usually enough. No form, no discovery workshop.</p>
+      </div>
+      <div class="rwd-step" data-rev>
+        <img class="rwd-stepimg" id="rwd-step2" alt="" aria-hidden="true" hidden>
+        <span class="rwd-num">02</span>
+        <h3 class="rwd-h3">We quote it</h3>
+        <p>One number, written down, covering the build and the first year. You see it before we
+        start, and it does not move afterwards.</p>
+      </div>
+      <div class="rwd-step" data-rev>
+        <img class="rwd-stepimg" id="rwd-step3" alt="" aria-hidden="true" hidden>
+        <span class="rwd-num">03</span>
+        <h3 class="rwd-h3">We build it and stay</h3>
+        <p>Design, build, host, and keep it running. Ring us in year five and the same people pick up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="rwd-sec" id="rwd-faq">
+  <div class="rwd-wrap">
+    <span class="rwd-label" data-rev>Questions we actually get</span>
+    <h2 class="rwd-h2" data-rev style="margin-top:var(--s2)">The awkward ones, answered.</h2>
+    <div class="rwd-faq" data-rev>
+      <details>
+        <summary>My last designer put the domain in their own name. Can you sort it out?<span class="rwd-plus"></span></summary>
+        <div class="rwd-ans">Usually, yes. We have done it plenty of times. Ring us with the domain name
+        and we will tell you what is involved before you commit to anything.</div>
+      </details>
+      <details>
+        <summary>What happens if I want to leave?<span class="rwd-plus"></span></summary>
+        <div class="rwd-ans">You take the site and the domain and go. We will hand over the files and
+        help the new person get set up. No exit fee, no holding anything back.</div>
+      </details>
+      <details>
+        <summary>What does it cost to keep running each year?<span class="rwd-plus"></span></summary>
+        <div class="rwd-ans">We tell you the yearly figure at the quote, not at renewal. It covers
+        hosting, the domain and keeping the thing updated. Ask us for the number before you decide.</div>
+      </details>
+      <details>
+        <summary>Can I change the text myself?<span class="rwd-plus"></span></summary>
+        <div class="rwd-ans">Yes. We set it up so you can edit your own words, and we will show you how
+        in about ten minutes. If you would rather ring us instead, that is fine too.</div>
+      </details>
+      <details>
+        <summary>How long does a site take?<span class="rwd-plus"></span></summary>
+        <div class="rwd-ans">Most small business sites take a few weeks once we have your words and
+        pictures. The waiting is almost always for content, so we will chase you gently.</div>
+      </details>
+      <details>
+        <summary>Do you only work with Cheltenham businesses?<span class="rwd-plus"></span></summary>
+        <div class="rwd-ans">Most of our work is Cheltenham, Gloucester and the villages around them,
+        because people like being able to drive over. We do work further afield as well.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CALL ══ -->
+<section class="rwd-sec rwd-call" id="rwd-call">
+  <div class="rwd-rings" aria-hidden="true">
+    <svg viewBox="0 0 400 400" width="760" height="760">
+      <circle cx="200" cy="200" r="60"/><circle cx="200" cy="200" r="95"/>
+      <circle cx="200" cy="200" r="130"/><circle cx="200" cy="200" r="165"/>
+      <circle cx="200" cy="200" r="198"/>
+    </svg>
+  </div>
+  <div class="rwd-wrap" style="position:relative;z-index:1">
+    <span class="rwd-label" data-rev>One number</span>
+    <h2 class="rwd-h2" data-rev style="margin-top:var(--s2)">Ring us. Someone picks up.</h2>
+    <p class="rwd-lede" data-rev style="margin:var(--s3) auto 0">
+      No form to fill in, no waiting for a reply. Tell us what you need and we will tell you what it costs.
+    </p>
+    <a class="rwd-callnum" id="rwd-bigcall" href="#" data-rev>01242 462003</a>
+    <p class="rwd-dim" data-rev style="margin-top:var(--s2);font-size:.9rem">
+      Monday to Friday. Cheltenham, Gloucestershire.
+    </p>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="rwd-foot">
+  <div class="rwd-wrap">
+    <div>
+      <img class="rwd-foot-logo" id="rwd-flogo" alt="Radius Web Design" hidden>
+      <div>Radius Web Design · Cheltenham, Gloucestershire</div>
+      <p class="rwd-note">
+        Imagery on this page is AI generated. The business, the work and the phone number are real.
+      </p>
+    </div>
+    <div><a href="#rwd-top">Back to top</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.getElementById('rwd-root');
+  if(!root || root.dataset.rwdInit === '1') return;
+  root.dataset.rwdInit = '1';
+
+  var CFG    = window.RWD_CONFIG || {};
+  var stage  = document.getElementById('rwd-stage');
+  var video  = document.getElementById('rwd-video');
+  var still  = document.getElementById('rwd-still');
+  var hero   = document.getElementById('rwd-hero');
+  var load   = document.getElementById('rwd-load');
+  var arc    = document.getElementById('rwd-arc');
+  var loadt  = document.getElementById('rwd-loadt');
+  var hint   = document.getElementById('rwd-hint');
+  var settle = document.getElementById('rwd-settle');
+  var nav    = document.querySelector('#rwd-root .rwd-nav');
+  var bands  = [].slice.call(root.querySelectorAll('[data-band]'));
+
+  /* ── phone number wiring, one place ───────────────────────────── */
+  var tel = CFG.tel || '+441242462003';
+  var telText = CFG.telText || '01242 462003';
+  ['rwd-navcall','rwd-herocall','rwd-mcall','rwd-bigcall'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.setAttribute('href','tel:' + tel);
+  });
+  ['rwd-herocall-t','rwd-mcall-t'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.textContent = 'Call ' + telText;
+  });
+  var big = document.getElementById('rwd-bigcall');
+  if(big) big.textContent = telText;
+
+  /* logo: real mark when it loads, drawn fallback when it does not */
+  var logo = document.getElementById('rwd-logo');
+  var brandfb = document.getElementById('rwd-brandfb');
+  var flogo = document.getElementById('rwd-flogo');
+  function useDrawnMark(){
+    if(logo) logo.hidden = true;
+    if(brandfb) brandfb.hidden = false;
+  }
+  if(logo){
+    if(CFG.logo){
+      logo.addEventListener('error', useDrawnMark, {once:true});
+      logo.src = CFG.logo;
+    } else { useDrawnMark(); }
+  }
+  if(flogo && CFG.logo){
+    flogo.addEventListener('error', function(){ flogo.hidden = true; }, {once:true});
+    flogo.addEventListener('load', function(){ flogo.hidden = false; }, {once:true});
+    flogo.src = CFG.logo;
+  }
+
+  /* portfolio screenshots, each one optional */
+  var workUrls = Array.isArray(CFG.work) ? CFG.work : [];
+  [].slice.call(root.querySelectorAll('[data-work]')).forEach(function(img){
+    var url = workUrls[parseInt(img.dataset.work, 10)];
+    var box = img.parentNode;
+    if(!url){ if(box) box.style.display = 'none'; return; }
+    img.addEventListener('error', function(){ if(box) box.style.display = 'none'; }, {once:true});
+    img.src = url;
+  });
+
+  /* step imagery, each one optional */
+  [1,2,3].forEach(function(n){
+    var el = document.getElementById('rwd-step' + n);
+    var url = CFG['step' + n];
+    if(!el || !url) return;
+    el.addEventListener('load', function(){ el.hidden = false; }, {once:true});
+    el.addEventListener('error', function(){ el.hidden = true; }, {once:true});
+    el.src = url;
+  });
+
+  if(still){
+    /* never let a missing poster spill alt text across the hero */
+    still.addEventListener('error', function(){ still.style.display = 'none'; }, {once:true});
+    if(CFG.poster) still.src = CFG.poster; else still.style.display = 'none';
+  }
+
+  /* ── nav solidifies once past the hero's first screen ─────────── */
+  var navTick = false;
+  function onNavScroll(){
+    if(navTick) return;
+    navTick = true;
+    requestAnimationFrame(function(){
+      if(nav) nav.dataset.solid = window.scrollY > window.innerHeight * 0.6 ? '1' : '0';
+      navTick = false;
+    });
+  }
+  window.addEventListener('scroll', onNavScroll, {passive:true});
+  onNavScroll();
+
+  /* ── reveals ──────────────────────────────────────────────────── */
+  var revs = [].slice.call(root.querySelectorAll('[data-rev]'));
+  if('IntersectionObserver' in window){
+    var ro = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){ e.target.dataset.in = '1'; ro.unobserve(e.target); }
+      });
+    }, {rootMargin:'0px 0px -12% 0px', threshold:0.08});
+    revs.forEach(function(el, i){
+      el.style.transitionDelay = (Math.min(i % 4, 3) * 70) + 'ms';
+      ro.observe(el);
+    });
+  } else {
+    revs.forEach(function(el){ el.dataset.in = '1'; });
+  }
+
+  /* ── count up ─────────────────────────────────────────────────── */
+  var counters = [].slice.call(root.querySelectorAll('[data-count]'));
+  if('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var co = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        co.unobserve(e.target);
+        var target = parseInt(e.target.dataset.count, 10) || 0;
+        var t0 = null, dur = 1100;
+        function step(ts){
+          if(t0 === null) t0 = ts;
+          var p = Math.min((ts - t0) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          e.target.textContent = Math.round(target * eased);
+          if(p < 1) requestAnimationFrame(step);
+        }
+        e.target.textContent = '0';
+        requestAnimationFrame(step);
+      });
+    }, {threshold:0.5});
+    counters.forEach(function(el){ co.observe(el); });
+  }
+
+  /* ── the five gates: when we do NOT run the scrub ─────────────── */
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var narrow  = matchMedia('(max-width: 900px)').matches;
+  var conn    = navigator.connection || {};
+  var slow    = conn.saveData === true ||
+                /^(slow-2g|2g|3g)$/.test(conn.effectiveType || '');
+  var noVideo = !CFG.video;
+  var canPlay = (function(){
+    if(!video || !video.canPlayType) return false;
+    var src = String(CFG.video || '').toLowerCase();
+    if(/\.webm(\?|$)/.test(src)) return !!video.canPlayType('video/webm; codecs="vp9"');
+    return !!video.canPlayType('video/mp4; codecs="avc1.42E01E"');
+  })();
+
+  if(reduced || narrow || slow || noVideo || !canPlay){
+    if(load) load.hidden = true;
+    if(hint) hint.dataset.off = '1';
+    if(settle) settle.dataset.on = '1';
+    bands.forEach(function(b){ b.dataset.on = '1'; });
+    return;                      /* the still hero is the design, not a failure */
+  }
+
+  /* ── fetch the video as a Blob so seeking is instant ──────────── */
+  if(load) load.hidden = false;
+  var CIRC = 2 * Math.PI * 10;
+
+  function setProgress(p){
+    if(arc) arc.setAttribute('stroke-dashoffset', String(CIRC * (1 - p)));
+  }
+  setProgress(0);
+
+  function fallback(){
+    if(load) load.hidden = true;
+    if(hint) hint.dataset.off = '1';
+    if(settle) settle.dataset.on = '1';
+    bands.forEach(function(b){ b.dataset.on = '1'; });
+    if(hero) hero.style.height = 'auto';
+    if(stage) { stage.style.position = 'relative'; stage.style.height = '88vh'; }
+  }
+
+  fetch(CFG.video, {credentials:'same-origin'})
+    .then(function(res){
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      var mime = (res.headers.get('content-type') || 'video/mp4').split(';')[0];
+      var total = parseInt(res.headers.get('content-length') || '0', 10);
+      if(!res.body || !total) return res.blob();
+      var reader = res.body.getReader(), chunks = [], got = 0;
+      return (function pump(){
+        return reader.read().then(function(r){
+          if(r.done) return new Blob(chunks, {type: mime});
+          chunks.push(r.value);
+          got += r.value.length;
+          setProgress(got / total);
+          if(loadt) loadt.textContent = Math.round((got / total) * 100) + '%';
+          return pump();
+        });
+      })();
+    })
+    .then(function(blob){
+      var url = URL.createObjectURL(blob);
+      video.src = url;
+      return new Promise(function(resolve, reject){
+        video.addEventListener('loadedmetadata', resolve, {once:true});
+        video.addEventListener('error', reject, {once:true});
+      });
+    })
+    .then(startScrub)
+    .catch(fallback);
+
+  /* ── the scrub engine ─────────────────────────────────────────── */
+  function startScrub(){
+    if(load) load.hidden = true;
+    if(stage) stage.dataset.ready = '1';
+
+    var dur = video.duration;
+    if(!isFinite(dur) || dur <= 0) return fallback();
+
+    var target = 0, shown = 0, seeking = false, raf = 0, resting = true;
+
+    video.addEventListener('seeked', function(){
+      seeking = false;
+    });
+
+    function progress(){
+      var rect = hero.getBoundingClientRect();
+      var span = hero.offsetHeight - window.innerHeight;
+      if(span <= 0) return 0;
+      return Math.min(Math.max(-rect.top / span, 0), 1);
+    }
+
+    /* caption bands, paced across the scroll not the clock */
+    var BANDS = [[0.00,0.26],[0.30,0.54],[0.58,0.80]];
+    function paintBands(p){
+      for(var i = 0; i < bands.length; i++){
+        var on = p >= BANDS[i][0] && p <= BANDS[i][1] ? '1' : '0';
+        if(bands[i].dataset.on !== on) bands[i].dataset.on = on;
+      }
+      var s = p > 0.86 ? '1' : '0';
+      if(settle && settle.dataset.on !== s) settle.dataset.on = s;
+      if(hint){
+        var h = p > 0.04 ? '1' : '0';
+        if(hint.dataset.off !== h) hint.dataset.off = h;
+      }
+    }
+
+    function tick(){
+      var diff = target - shown;
+      if(Math.abs(diff) < 0.004){
+        shown = target;
+        resting = true;
+        raf = 0;
+        return;                              /* the loop rests */
+      }
+      shown += diff * 0.12;                   /* lerp */
+      if(!seeking){                           /* one seek at a time */
+        seeking = true;
+        try { video.currentTime = shown; }
+        catch(e){ seeking = false; }
+      }
+      raf = requestAnimationFrame(tick);
+    }
+
+    function wake(){
+      if(resting){ resting = false; raf = requestAnimationFrame(tick); }
+    }
+
+    var scrollTick = false;
+    function onScroll(){
+      if(scrollTick) return;
+      scrollTick = true;
+      requestAnimationFrame(function(){
+        var p = progress();
+        paintBands(p);
+        var t = p * (dur - 0.05);
+        if(Math.abs(t - target) > 0.004){ target = t; wake(); }
+        scrollTick = false;
+      });
+    }
+
+    if(bands[0]) bands[0].dataset.on = '1';   /* a headline on arrival, always */
+
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll, {passive:true});
+    document.addEventListener('visibilitychange', function(){
+      if(document.hidden && raf){ cancelAnimationFrame(raf); raf = 0; resting = true; }
+      else onScroll();
+    });
+    onScroll();
+  }
+})();
+</script>
+</div>
