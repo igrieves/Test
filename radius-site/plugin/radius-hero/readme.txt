@@ -1,7 +1,7 @@
 === Radius Hero ===
 Requires at least: 6.0
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPL-2.0-or-later
 
 The cinematic scroll hero and landing page for Radius Web Design.
@@ -35,6 +35,15 @@ The cinematic scroll hero and landing page for Radius Web Design.
    That renders the page on its own with no theme and no page involved. If
    the preview works but your page does not, the plugin is fine and the page
    setup is the problem.
+
+== Self check ==
+
+     yoursite.co.uk/?radius_hero=check
+
+Logged in as an administrator, this lists the plugin version, PHP and
+WordPress versions, the active theme, which media files are present and which
+are missing, the URL assets are served from, and which pages are using the
+template. Start here when something is not working.
 
 == Notes ==
 
